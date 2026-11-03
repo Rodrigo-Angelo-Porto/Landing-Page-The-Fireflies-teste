@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fireflies — Sem Olhar Pra Trás 2026</title>
+<meta name="description" content="The Fireflies ao vivo: João Pessoa (20/07), Recife (22/07) e Fortaleza (28/07).">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c0c0c'/%3E%3Cellipse cx='22' cy='17' rx='11' ry='4.5' transform='rotate(32 22 17)' fill='%23f3f0e6'/%3E%3Cellipse cx='42' cy='17' rx='11' ry='4.5' transform='rotate(-32 42 17)' fill='%23f3f0e6'/%3E%3Ccircle cx='32' cy='25' r='4.5' fill='%23f3f0e6'/%3E%3Cellipse cx='32' cy='43' rx='10' ry='14' fill='%23e3202b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Rock+Salt&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0c0c0c;
+    --coal:#1a1a1a;
+    --grey:#8d8d8d;
+    --light:#d9d6cc;
+    --paper:#f3f0e6;
+    --red:#e3202b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;font-size:17px;line-height:1.6;
+    background:var(--paper);color:var(--black);overflow-x:hidden;
+  }
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative}
+  .anton{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.02em}
+  .hand{font-family:'Rock Salt',cursive}
+
+  /* grão e vinheta de filme sobre tudo */
+  .grain,.vignette{position:fixed;inset:0;pointer-events:none;z-index:90}
+  .grain{
+    opacity:.1;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .vignette{background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.28) 100%)}
+
+  /* ---------- nav ---------- */
+  nav{position:absolute;top:0;left:0;right:0;z-index:20;padding:22px 0}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center}
+  nav .logo{font-size:1.6rem;text-decoration:none;color:var(--black);letter-spacing:.08em}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav ul a{color:var(--black);text-decoration:none;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;padding-bottom:3px;border-bottom:2px solid transparent}
+  nav ul a:hover{border-color:var(--red)}
+  .menu-btn{display:none;background:var(--black);color:var(--paper);border:0;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;padding:11px 18px;cursor:pointer}
+  .menu-btn:focus-visible,nav a:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+  /* ---------- hero: cartaz da turnê ---------- */
+  /* a primeira tela mostra o topo, as datas e a faixa que rola, tudo inteiro */
+  .hero{position:relative;background:var(--paper);color:var(--black);padding-top:100px;overflow:hidden;display:flex;flex-direction:column;min-height:calc(100svh - 80px)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;align-content:center;flex:1;width:100%;padding-bottom:40px}
+  .credit{font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px}
+  .title{font-size:clamp(3.6rem,min(9.5vw,15vh),8.4rem);line-height:1.08;margin:0 0 24px;color:var(--black)}
+  .title span{display:inline-block}
+  .title .word{display:block;white-space:nowrap}
+  .title .word:first-child{font-size:.5em;padding-left:.25em}
+  .title .word:last-child{text-shadow:5px 5px 0 var(--red)}
+  .subtitle{display:inline-block;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.3em;font-size:clamp(.9rem,1.6vw,1.15rem);background:var(--black);color:var(--paper);padding:8px 20px;margin-bottom:24px}
+  .tagline{font-size:1.2rem;max-width:30em;margin-bottom:32px}
+  .tagline em{color:var(--red);font-style:normal;font-weight:600}
+  .poster{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px;background:var(--black);transform:rotate(2deg);box-shadow:14px 14px 0 var(--red);aspect-ratio:4/5;width:100%;max-width:460px;justify-self:center}
+  .poster i{position:relative;overflow:hidden;background:linear-gradient(var(--a),var(--g1),var(--g2))}
+  .poster i::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,#000 30%,transparent 33%) 0 0/8px 8px;opacity:.55;mix-blend-mode:multiply;-webkit-mask:linear-gradient(0deg,#000,transparent 85%);mask:linear-gradient(0deg,#000,transparent 85%)}
+  .poster i::after{content:"";position:absolute;left:50%;bottom:-20%;width:66%;aspect-ratio:1;translate:-50% 0;border-radius:50% 50% 10% 10%;background:rgba(0,0,0,.75);box-shadow:0 -54% 0 -8% rgba(0,0,0,.75)}
+  .poster i.red{background:linear-gradient(var(--a),#ff6b73,var(--red))}
+  .poster b{position:absolute;left:10px;bottom:8px;z-index:2;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1rem,2.2vw,1.6rem);color:var(--paper);text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000}
+  .hero-dates{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);background:var(--black);color:var(--paper)}
+  .hero-dates li{display:flex;align-items:center;justify-content:center;gap:18px;padding:22px 16px;border-left:1px solid #3a3a3a}
+  .hero-dates li:first-child{border-left:0}
+  .hero-dates b{font-family:'Anton',sans-serif;font-weight:400;font-size:2.4rem;line-height:1;color:var(--red)}
+  .hero-dates span{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:1.25rem;line-height:1.1}
+  .hero-dates small{display:block;font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:.8rem;opacity:.65;margin-top:3px}
+
+  .btn{
+    display:inline-block;text-decoration:none;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:1rem;
+    background:var(--paper);color:var(--black);padding:15px 38px;border:3px solid var(--black);
+    box-shadow:6px 6px 0 var(--red);transition:transform .15s,box-shadow .15s,background .15s,color .15s;cursor:pointer;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--red)}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--red)}
+  .btn.dark{background:var(--black);color:var(--paper);border-color:var(--black);box-shadow:5px 5px 0 var(--red)}
+  .btn.dark:hover{background:var(--red)}
+  .btn.small{padding:11px 30px;font-size:.9rem}
+
+  /* ---------- faixa ---------- */
+  .band{background:var(--black);color:var(--paper);overflow:hidden;white-space:nowrap;border-block:4px solid var(--paper);outline:4px solid var(--black);position:relative;z-index:4}
+  .band div{display:inline-block;padding:13px 0;animation:marquee 36s linear infinite;font-size:1.5rem}
+  .band span{margin:0 26px}
+  .band span.r{color:var(--red)}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  section{padding:110px 0;position:relative}
+  /* cada seção ocupa a tela inteira e centraliza o conteúdo, para os links do menu pousarem bem encaixados */
+  @media(min-width:821px){
+    section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:80px 0}
+    section>.wrap{width:100%}
+  }
+  .label{font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;color:var(--red)}
+  .section-title{font-size:clamp(2.8rem,8vw,6rem);line-height:1.12;margin:8px 0 22px}
+  .center{text-align:center}
+
+  /* ---------- datas ---------- */
+  .shows{background:var(--black);color:var(--paper)}
+  .shows .label{color:var(--red)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px}
+  .frame{
+    background:var(--paper);color:var(--black);position:relative;padding:22px 20px 24px;
+    transition:transform .25s;box-shadow:0 18px 40px rgba(0,0,0,.6);
+  }
+  .frame:nth-child(1){transform:rotate(-1.4deg)}
+  .frame:nth-child(2){transform:rotate(.8deg) translateY(-10px)}
+  .frame:nth-child(3){transform:rotate(-.6deg)}
+  .frame:hover{transform:rotate(0) translateY(-10px)}
+  .frame .n{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;display:flex;justify-content:space-between;color:#555;border-bottom:2px solid var(--black);padding-bottom:8px}
+  .frame .photo{
+    margin:16px 0;aspect-ratio:16/10;position:relative;overflow:hidden;
+    background:linear-gradient(160deg,#cfcfcf,#555);display:grid;place-items:center;border:3px solid var(--black);
+  }
+  .frame .photo::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,#000 28%,transparent 31%) 0 0/8px 8px;opacity:.55;mix-blend-mode:multiply;-webkit-mask:linear-gradient(115deg,#000,transparent 70%);mask:linear-gradient(115deg,#000,transparent 70%)}
+  .frame .date{position:relative;font-size:5.6rem;line-height:1;color:var(--paper);text-shadow:4px 4px 0 var(--black),-2px -2px 0 var(--black),2px -2px 0 var(--black),-2px 2px 0 var(--black)}
+  .frame .date small{font-size:.28em;letter-spacing:.2em;display:block;text-align:center;margin-top:4px}
+  .frame:nth-child(2) .photo{background:linear-gradient(160deg,#f0aab0,var(--red))}
+  .frame h3{font-size:2.4rem;line-height:1}
+  .frame .when{font-size:.9rem;color:#444;margin:4px 0 14px}
+  .place{border-top:2px dashed var(--black);padding-top:14px;margin-bottom:20px;font-size:.95rem;line-height:1.45}
+  .place b{display:block;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.08em;font-size:1.15rem;color:var(--red)}
+  .frame .btn{width:100%;text-align:center}
+  .note{text-align:center;margin-top:46px;opacity:.6;font-size:.9rem}
+
+  /* ---------- integrantes ---------- */
+  .cast{background:var(--light)}
+  .cast-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px}
+  .member{text-align:center;background:none;border:0;font:inherit;color:inherit;cursor:pointer;display:block;width:100%}
+  .member .more{display:inline-block;margin-top:10px;font-style:normal;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:.8rem;border-bottom:2px solid var(--red);padding-bottom:2px}
+  .member:hover .more,.member:focus-visible .more{background:var(--red);color:var(--paper);border-color:var(--red)}
+  .member:focus-visible{outline:3px solid var(--red);outline-offset:6px}
+
+  .portrait{
+    aspect-ratio:3/4;position:relative;overflow:hidden;border:6px solid var(--black);outline:2px solid var(--paper);outline-offset:-10px;margin-bottom:16px;
+    background:linear-gradient(var(--a),var(--g1),var(--g2));box-shadow:8px 8px 0 var(--black);transition:transform .3s;
+    display:grid;place-items:center;
+  }
+  .member:hover .portrait{transform:rotate(-3deg) scale(1.03)}
+  .portrait::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,#000 30%,transparent 33%) 0 0/7px 7px;opacity:.5;mix-blend-mode:multiply;-webkit-mask:linear-gradient(0deg,#000,transparent 80%);mask:linear-gradient(0deg,#000,transparent 80%)}
+  .portrait::after{content:"";position:absolute;left:50%;bottom:-14%;width:78%;aspect-ratio:1;translate:-50% 0;border-radius:50% 50% 8% 8%;background:rgba(0,0,0,.78);box-shadow:0 -60% 0 -14% rgba(0,0,0,.78)}
+  .portrait span{position:absolute;top:12px;left:14px;font-size:2.4rem;color:var(--paper);z-index:2;line-height:1;text-shadow:2px 2px 0 var(--black)}
+  .m4 .portrait{background:linear-gradient(var(--a),#ff6b73,var(--red))}
+  /* identidade de cada integrante: textura de meio-tom e instrumento próprios */
+  .portrait.pt2::before,.poster i.pt2::before{background:repeating-linear-gradient(45deg,#000 0 2px,transparent 2px 7px)}
+  .portrait.pt3::before,.poster i.pt3::before{background:radial-gradient(circle,#000 38%,transparent 42%) 0 0/16px 16px}
+  .portrait.pt4::before,.poster i.pt4::before{background:repeating-radial-gradient(circle at 50% 100%,#000 0 2px,transparent 2px 9px)}
+  .emb{position:absolute;right:10px;top:10px;z-index:2;width:42px;height:42px;padding:8px;border-radius:50%;background:var(--black);fill:var(--paper);color:var(--paper)}
+  .poster .emb{width:34px;height:34px;padding:6px}
+  .member h3{font-size:1.7rem}
+  .member p{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:#444}
+
+  /* recorte de jornal com a cronologia */
+  .clipping{
+    max-width:880px;margin:0 auto;text-align:left;position:relative;transform:rotate(-.7deg);
+    background:#ece5d1;border:1px solid #b9b19a;padding:34px 38px 30px;box-shadow:0 14px 30px rgba(0,0,0,.25);
+    background-image:linear-gradient(180deg,rgba(255,255,255,.35),transparent 30%);
+  }
+  .clipping::before{content:"";position:absolute;left:-1px;right:-1px;top:-8px;height:9px;background:inherit;border:1px solid #b9b19a;border-bottom:0;
+    clip-path:polygon(0 100%,2% 20%,5% 90%,8% 10%,12% 80%,16% 0,20% 90%,25% 15%,30% 85%,34% 5%,40% 90%,46% 20%,52% 85%,58% 10%,63% 90%,70% 15%,76% 80%,82% 5%,88% 90%,94% 20%,100% 100%)}
+  .clip-kicker{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#6b6350;border-bottom:3px double var(--black);padding-bottom:8px;margin-bottom:14px}
+  .clipping h3{font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.1;margin-bottom:12px}
+  .clip-lead{font-size:1.05rem;max-width:62ch;margin-bottom:22px}
+  .clip-time{list-style:none;border-top:1px solid #b9b19a}
+  .clip-time li{display:grid;grid-template-columns:86px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid #b9b19a;align-items:start}
+  .clip-time b{font-family:'Anton',sans-serif;font-weight:400;font-size:2rem;line-height:1;color:var(--red)}
+  .clip-time span{line-height:1.5;margin-top:3px}
+  .clip-time strong{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+
+  /* ---------- setlist ---------- */
+  .ost-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:center}
+  .sleeve{
+    aspect-ratio:1;background:var(--black);position:relative;transform:rotate(-3deg);box-shadow:16px 16px 0 var(--red);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5px;padding:5px;
+  }
+  .sleeve i{display:block;position:relative;overflow:hidden;background:linear-gradient(var(--a),var(--g1),var(--g2))}
+  .sleeve i::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,#000 30%,transparent 33%) 0 0/7px 7px;opacity:.55;mix-blend-mode:multiply}
+  .sleeve i::after{content:"";position:absolute;left:50%;bottom:-20%;width:66%;aspect-ratio:1;translate:-50% 0;border-radius:50% 50% 10% 10%;background:rgba(0,0,0,.75);box-shadow:0 -54% 0 -8% rgba(0,0,0,.75)}
+  .sleeve b{position:absolute;inset:auto 0 50% 0;translate:0 50%;text-align:center;z-index:2;font-size:clamp(1.6rem,4vw,2.8rem);line-height:1.2;color:var(--paper);text-shadow:3px 3px 0 var(--black),-2px -2px 0 var(--black),2px -2px 0 var(--black),-2px 2px 0 var(--black)}
+  .tracks{list-style:none;counter-reset:t;margin-top:22px;border-top:3px solid var(--black)}
+  .tracks li{counter-increment:t;display:flex;gap:18px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--black);font-size:1.15rem}
+  .tracks li::before{content:counter(t,decimal-leading-zero);font-family:'Anton',sans-serif;color:var(--red);font-size:1.3rem}
+  .tracks small{margin-left:auto;opacity:.6}
+
+  /* ---------- rodapé ---------- */
+  footer{background:var(--black);color:var(--paper);text-align:center;padding:110px 24px 40px;position:relative;overflow:hidden}
+  footer .fim{font-size:clamp(4rem,16vw,11rem);line-height:.9;margin-bottom:12px;color:transparent;-webkit-text-stroke:3px var(--paper)}
+  footer .fim em{font-style:normal;color:var(--red);-webkit-text-stroke:0}
+  footer p.big{font-size:1.35rem;margin-bottom:30px}
+  footer p.small{opacity:.5;font-size:.8rem;margin-top:60px;letter-spacing:.2em}
+
+  /* ---------- perfis ---------- */
+  .bio-grid{display:grid;grid-template-columns:200px 1fr;gap:12px 26px;align-items:start;grid-template-areas:"portrait head" "portrait text" "portrait tracks"}
+  .bio-grid>*{min-width:0}
+  .bio .portrait{grid-area:portrait;margin:0;max-width:none;width:100%;box-shadow:6px 6px 0 var(--black)}
+  .bio .portrait span{font-size:2rem}
+  .b-head{grid-area:head}
+  .b-text{grid-area:text}
+  .b-tracks{grid-area:tracks}
+  .bio h4{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.2em;font-size:.8rem;color:var(--red);margin:0 0 4px}
+  .bio .role{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:#555;margin:6px 0 4px}
+  .bio ul{list-style:none}
+  .b-tracks li::before{content:"♪ ";color:var(--red)}
+  @media(max-width:640px){
+    .bio-grid{grid-template-columns:1fr;grid-template-areas:"portrait" "head" "text" "tracks"}
+    .bio .portrait{max-width:170px}
+  }
+
+  /* ---------- mapa de assentos ---------- */
+  .modal{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.82)}
+  .modal.open{display:flex}
+  .sheet{background:var(--paper);color:var(--black);width:min(760px,100%);max-height:100%;overflow:auto;border:4px solid var(--black);box-shadow:10px 10px 0 var(--red);padding:30px 28px 26px;position:relative}
+  .sheet .close{position:absolute;top:10px;right:12px;background:none;border:0;font-family:'Anton',sans-serif;font-size:1.6rem;cursor:pointer;color:var(--black);line-height:1;padding:6px 10px}
+  .sheet .close:hover{color:var(--red)}
+  .sheet h3{font-size:2.2rem;line-height:1}
+  .sheet .sub{font-size:.9rem;color:#444;margin:6px 0 18px}
+  .room{background:#e4e1d6;border:3px solid var(--black);padding:16px 10px 18px;margin-bottom:14px}
+  .stage{width:70%;margin:0 auto 18px;background:var(--black);color:var(--paper);text-align:center;font-family:'Anton',sans-serif;letter-spacing:.4em;font-size:.85rem;padding:9px 0;clip-path:polygon(4% 0,96% 0,100% 100%,0 100%)}
+  .seats{display:grid;gap:6px;justify-content:center}
+  .row{display:flex;align-items:center;gap:5px;justify-content:center}
+  .row .r{width:18px;font-family:'Anton',sans-serif;font-size:.8rem;color:#555;text-align:center}
+  .gap{width:16px}
+  .seat{
+    width:clamp(14px,3.6vw,24px);aspect-ratio:1;border:2px solid var(--black);background:var(--paper);cursor:pointer;padding:0;
+    border-radius:5px 5px 2px 2px;transition:transform .1s,background .1s;
+  }
+  .seat:hover:not(:disabled){transform:translateY(-2px);background:#fff}
+  .seat:disabled{background:#6b6b6b;cursor:not-allowed;border-color:#3a3a3a;position:relative}
+  .seat.sel{background:var(--red);border-color:var(--black)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;margin-bottom:16px}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .legend i{display:block;width:16px;height:16px;border:2px solid var(--black);border-radius:4px 4px 2px 2px}
+  .legend .a{background:var(--paper)}.legend .t{background:#6b6b6b;border-color:#3a3a3a}.legend .s{background:var(--red)}
+  .summary{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-top:3px solid var(--black);padding-top:14px}
+  .summary .sel-info{font-size:.95rem}
+  .summary .sel-info b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.3rem;color:var(--red)}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;pointer-events:none}
+  .hint{display:none;font-size:.8rem;color:#555;margin:-6px 0 10px}
+  .seat[aria-pressed="true"]::after{content:"✓";display:block;color:var(--paper);font-size:.8em;line-height:1;text-align:center}
+  .seat:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+  @media(max-width:640px),(pointer:coarse){
+    .room{overflow-x:auto}
+    .seats{width:max-content;min-width:100%}
+    .seat{width:32px}
+    .hint{display:block}
+  }
+
+  .toast{position:fixed;bottom:26px;left:50%;translate:-50% 150%;background:var(--paper);color:var(--black);padding:14px 26px;border:3px solid var(--black);box-shadow:5px 5px 0 var(--red);z-index:200;transition:translate .35s,visibility .35s;text-align:center;max-width:90vw;visibility:hidden}
+  .toast.show{translate:-50% 0;visibility:visible}
+
+  .rv{opacity:0;translate:0 34px;transition:opacity .9s,translate .9s}
+  .rv.in{opacity:1;translate:0 0}
+
+  @media(min-width:821px) and (max-height:960px){
+    section{padding:40px 0}
+    .cards{margin-top:36px}
+    .frame .photo{margin:10px 0}
+    .cast-grid{margin-top:36px}
+  }
+  @media(min-width:821px) and (max-height:800px){
+    .section-title{font-size:3.4rem;margin-bottom:8px}
+    .cards{margin-top:20px}
+    .frame{padding:14px 18px 18px}
+    .frame .photo{aspect-ratio:16/6.5;margin:8px 0}
+    .frame .date{font-size:3.8rem}
+    .frame h3{font-size:1.9rem}
+    .frame .when{margin-bottom:8px}
+    .place{margin-bottom:14px;padding-top:10px}
+    .note{margin-top:16px}
+  }
+  @media(max-height:800px) and (min-width:821px){
+    .hero{padding-top:84px}
+    .hero-grid{gap:40px;padding-bottom:24px}
+    .poster{max-width:min(460px,50vh)}
+    .tagline{font-size:1.05rem;margin-bottom:20px}
+    .subtitle{margin-bottom:16px}
+    .hero-dates li{padding:12px 16px}
+    .hero-dates b{font-size:2rem}
+    .band div{padding:9px 0}
+  }
+  @media(max-width:980px){
+    .cards{gap:14px}
+    .frame{padding:20px 12px 20px}
+    .frame .date{font-size:4rem}
+    .frame h3{font-size:1.8rem}
+  }
+  @media(max-width:820px){
+    .hero{padding-top:100px}
+    .hero-grid{grid-template-columns:1fr;gap:48px;padding-bottom:60px}
+    .poster{max-width:340px}
+    .hero-dates{grid-template-columns:1fr}
+    .hero-dates li{justify-content:flex-start;padding:16px 24px;border-left:0;border-top:1px solid #3a3a3a}
+    .hero-dates li:first-child{border-top:0}
+    .menu-btn{display:block}
+    nav ul{display:none;position:absolute;top:calc(100% + 10px);left:24px;right:24px;flex-direction:column;gap:0;background:var(--black);z-index:30}
+    nav ul.open{display:flex}
+    nav ul a{display:block;color:var(--paper);padding:16px 20px;font-size:.9rem;border-bottom:1px solid #333}
+    nav ul li:last-child a{border-bottom:0}
+    .clipping{padding:26px 20px 22px}
+    .clip-time li{grid-template-columns:1fr;gap:4px}
+    .ost-grid{grid-template-columns:1fr;gap:56px}
+    .cards{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+    .frame:nth-child(n){transform:none}
+    .cast-grid{grid-template-columns:repeat(2,1fr)}
+    .sleeve{max-width:380px;margin:0 auto}
+    section{padding:80px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .band div{animation:none}
+    .rv{opacity:1;translate:0 0;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="i-mic"><circle cx="50" cy="30" r="19"/><rect x="43" y="48" width="14" height="32" rx="6"/><rect x="32" y="80" width="36" height="8" rx="3"/></g>
+  <g id="i-guitar"><g transform="rotate(40 50 50)"><rect x="47" y="0" width="6" height="52"/><rect x="43" y="-5" width="14" height="10" rx="2"/><ellipse cx="50" cy="62" rx="16" ry="13"/><ellipse cx="50" cy="80" rx="21" ry="16"/></g></g>
+  <g id="i-bass"><g transform="rotate(-40 50 50)"><rect x="48" y="-8" width="5" height="68"/><rect x="45" y="-10" width="11" height="13" rx="2"/><path d="M33 60h34l7 26H26z"/></g></g>
+  <g id="i-drum"><ellipse cx="50" cy="52" rx="34" ry="12"/><path d="M16 52v24c0 7 15 12 34 12s34-5 34-12V52c0 7-15 12-34 12S16 59 16 52z"/><path d="M24 10l24 36M76 10L52 46" stroke="currentColor" stroke-width="6" stroke-linecap="round" fill="none"/></g>
+</defs></svg>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="hero">
+  <nav>
+    <div class="wrap">
+      <a class="logo anton" href="#">The Fireflies</a>
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+      <ul id="menu">
+        <li><a href="#datas">Datas</a></li>
+        <li><a href="#integrantes">Integrantes</a></li>
+        <li><a href="#setlist">Setlist</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="credit">Rock ao vivo · 3 cidades · 2026</p>
+      <h1 class="title hand"><span class="word">The</span> <span class="word">Fireflies</span></h1>
+      <p class="subtitle">Turnê Sem Olhar Pra Trás</p>
+      <p class="tagline">Quatro vozes, um disco novo tocado <em>inteiro</em> e nada de playback. Três noites no Nordeste.</p>
+      <a class="btn dark" href="#datas">Ver as datas</a>
+    </div>
+    <div class="poster" role="img" aria-label="Arte em meio-tom com os quatro integrantes: Tiago, Luana, Beto e Rita">
+      <i class="pt1" style="--a:170deg;--g1:#eee;--g2:#666"><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-mic"/></svg><b>Tiago</b></i>
+      <i class="pt2" style="--a:200deg;--g1:#d4d4d4;--g2:#3a3a3a"><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-guitar"/></svg><b>Luana</b></i>
+      <i class="pt3" style="--a:150deg;--g1:#f2f2f2;--g2:#777"><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-bass"/></svg><b>Beto</b></i>
+      <i class="pt4 red" style="--a:185deg"><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-drum"/></svg><b>Rita</b></i>
+    </div>
+  </div>
+
+  <ol class="hero-dates">
+    <li><b>20.07</b><span>João Pessoa<small>Paraíba</small></span></li>
+    <li><b>22.07</b><span>Recife<small>Pernambuco</small></span></li>
+    <li><b>28.07</b><span>Fortaleza<small>Ceará</small></span></li>
+  </ol>
+</header>
+
+<div class="band anton" aria-hidden="true">
+  <div>
+    <span>Sem Olhar Pra Trás</span><span class="r">★</span><span>Desculpas em Lá Maior</span><span class="r">★</span><span>Onde o Vento me Levar</span><span class="r">★</span><span>Sábado à Noite</span><span class="r">★</span><span>Esqueci de Te Falar</span><span class="r">★</span><span>Disco novo tocado inteiro</span><span class="r">★</span>
+    <span>Sem Olhar Pra Trás</span><span class="r">★</span><span>Desculpas em Lá Maior</span><span class="r">★</span><span>Onde o Vento me Levar</span><span class="r">★</span><span>Sábado à Noite</span><span class="r">★</span><span>Esqueci de Te Falar</span><span class="r">★</span><span>Disco novo tocado inteiro</span><span class="r">★</span>
+    <span>Sem Olhar Pra Trás</span><span class="r">★</span><span>Desculpas em Lá Maior</span><span class="r">★</span><span>Onde o Vento me Levar</span><span class="r">★</span><span>Sábado à Noite</span><span class="r">★</span><span>Esqueci de Te Falar</span><span class="r">★</span><span>Disco novo tocado inteiro</span><span class="r">★</span>
+    <span>Sem Olhar Pra Trás</span><span class="r">★</span><span>Desculpas em Lá Maior</span><span class="r">★</span><span>Onde o Vento me Levar</span><span class="r">★</span><span>Sábado à Noite</span><span class="r">★</span><span>Esqueci de Te Falar</span><span class="r">★</span><span>Disco novo tocado inteiro</span><span class="r">★</span>
+  </div>
+</div>
+
+<main>
+<section id="datas" class="shows">
+  <div class="wrap">
+    <div class="center rv">
+      <p class="label">Três cidades · Três noites</p>
+      <h2 class="section-title anton">Datas</h2>
+    </div>
+
+    <div class="cards">
+      <article class="frame rv">
+        <div class="n"><span>Show 01</span><span>Seg</span></div>
+        <div class="photo"><div class="date anton">20<small>JULHO 2026</small></div></div>
+        <h3 class="anton">João Pessoa</h3>
+        <p class="when">Paraíba · Portas 19h · Show 20h30</p>
+        <div class="place">
+          <b>Teatro Alto Mar</b>
+          Rua das Acácias, 120 — Tambaú<br>João Pessoa, PB
+        </div>
+        <button type="button" class="btn dark small" data-city="João Pessoa" data-date="20/07/2026" data-venue="Teatro Alto Mar">Ingressos</button>
+      </article>
+
+      <article class="frame rv">
+        <div class="n"><span>Show 02</span><span>Qua</span></div>
+        <div class="photo"><div class="date anton">22<small>JULHO 2026</small></div></div>
+        <h3 class="anton">Recife</h3>
+        <p class="when">Pernambuco · Portas 19h · Show 21h</p>
+        <div class="place">
+          <b>Casa Maré Cheia</b>
+          Rua do Farol, 450 — Boa Viagem<br>Recife, PE
+        </div>
+        <button type="button" class="btn dark small" data-city="Recife" data-date="22/07/2026" data-venue="Casa Maré Cheia">Ingressos</button>
+      </article>
+
+      <article class="frame rv">
+        <div class="n"><span>Show 03</span><span>Ter</span></div>
+        <div class="photo"><div class="date anton">28<small>JULHO 2026</small></div></div>
+        <h3 class="anton">Fortaleza</h3>
+        <p class="when">Ceará · Portas 19h · Show 21h</p>
+        <div class="place">
+          <b>Galpão Vento Sul</b>
+          Av. dos Coqueiros, 800 — Meireles<br>Fortaleza, CE
+        </div>
+        <button type="button" class="btn dark small" data-city="Fortaleza" data-date="28/07/2026" data-venue="Galpão Vento Sul">Ingressos</button>
+      </article>
+    </div>
+    <p class="note">Banda, locais e endereços fictícios, criados para este projeto.</p>
+  </div>
+</section>
+
+<section id="integrantes" class="cast">
+  <div class="wrap center">
+    <div class="rv">
+      <p class="label">Integrantes</p>
+      <h2 class="section-title anton">Os Quatro</h2>
+    </div>
+    <div class="cast-grid">
+      <button class="member rv" data-m="tiago"><div class="portrait pt1" style="--a:170deg;--g1:#eee;--g2:#555"><span class="anton">1</span><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-mic"/></svg></div><h3 class="anton">Tiago Tavares</h3><p>Vocalista e violão</p><em class="more">Ver perfil</em></button>
+      <button class="member rv" data-m="luana"><div class="portrait pt2" style="--a:200deg;--g1:#ddd;--g2:#333"><span class="anton">2</span><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-guitar"/></svg></div><h3 class="anton">Luana Silveira</h3><p>Guitarra e segunda voz</p><em class="more">Ver perfil</em></button>
+      <button class="member rv" data-m="beto"><div class="portrait pt3" style="--a:150deg;--g1:#f4f4f4;--g2:#666"><span class="anton">3</span><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-bass"/></svg></div><h3 class="anton">Beto Cavalari</h3><p>Baixo e vozes</p><em class="more">Ver perfil</em></button>
+      <button class="member m4 rv" data-m="rita"><div class="portrait pt4" style="--a:185deg"><span class="anton">4</span><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use href="#i-drum"/></svg></div><h3 class="anton">Rita Teixeira</h3><p>Bateria e teclados</p><em class="more">Ver perfil</em></button>
+    </div>
+  </div>
+</section>
+
+<section id="historia" class="cast">
+  <div class="wrap center">
+    <aside class="clipping rv" aria-labelledby="clip-title">
+      <p class="clip-kicker">Gazeta da Orla · Caderno Cultura · 2026</p>
+      <h3 class="anton" id="clip-title">Quatro cidades, uma banda</h3>
+      <p class="clip-lead">Tiago, Luana, Beto e Rita nasceram em João Pessoa, Recife, Porto Alegre e Ribeirão Preto. Três deles se mudaram para Recife ainda na época da escola, e foi lá que a banda começou a existir.</p>
+      <ol class="clip-time">
+        <li><b>2019</b><span><strong>Primeiro encontro.</strong> Tiago, Beto e Rita nasceram em outras cidades e acabaram se mudando para Recife ainda na época da escola. Foi lá, ao lado de Luana, que os quatro se conheceram.</span></li>
+        <li><b>2020</b><span><strong>Primeiro ensaio.</strong> Na casa de Luana, a única dos quatro que é de Recife. Foi lá, nesse ensaio, que Cavalari compôs "Desculpas em Lá Maior", música que a banda só decidiu lançar agora, no disco da turnê atual.</span></li>
+        <li><b>2022</b><span><strong>Primeiro show.</strong> Um bar de oitenta lugares em João Pessoa, com ingressos vendidos, em sua maioria, para a família.</span></li>
+        <li><b>2026</b><span><strong>Lançamento do disco.</strong> "Sem Olhar Pra Trás" chega ao palco, e a turnê passa por três capitais do Nordeste.</span></li>
+      </ol>
+    </aside>
+  </div>
+</section>
+
+<section id="setlist">
+  <div class="wrap ost-grid">
+    <div class="sleeve rv" role="img" aria-label="Capa gráfica em preto e branco do disco Sem Olhar Pra Trás, com quatro painéis de meio-tom">
+      <i style="--a:170deg;--g1:#eee;--g2:#666"></i>
+      <i style="--a:200deg;--g1:#ccc;--g2:#333"></i>
+      <i style="--a:150deg;--g1:#e6e6e6;--g2:#555"></i>
+      <i style="--a:185deg;--g1:#ff6b73;--g2:var(--red)"></i>
+      <b class="anton">Sem Olhar<br>Pra Trás</b>
+    </div>
+    <div class="rv">
+      <p class="label">Setlist</p>
+      <h2 class="section-title anton">Sem Olhar Pra Trás</h2>
+      <p>O disco inteiro, na ordem em que toca no palco:</p>
+      <ol class="tracks">
+        <li>Sem Olhar Pra Trás <small>3:12</small></li>
+        <li>Desculpas em Lá Maior <small>2:41</small></li>
+        <li>Onde o Vento me Levar <small>3:05</small></li>
+        <li>Sábado à Noite <small>2:27</small></li>
+        <li>Esqueci de Te Falar <small>3:20</small></li>
+      </ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <h2 class="fim anton">Até <em>lá</em></h2>
+  <p class="big hand">Nos vemos na primeira fila.</p>
+  <a class="btn" href="#datas">Ver as datas</a>
+  <p class="small">THE FIREFLIES · TURNÊ SEM OLHAR PRA TRÁS 2026 · PROJETO FICTÍCIO</p>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="sheet">
+    <button class="close" id="m-close" aria-label="Fechar">✕</button>
+    <h3 class="anton" id="m-title">Escolha seu lugar</h3>
+    <p class="sub" id="m-sub"></p>
+    <div class="legend" aria-hidden="true">
+      <span><i class="a"></i>Disponível</span><span><i class="t"></i>Ocupado</span><span><i class="s"></i>Selecionado</span>
+    </div>
+    <p class="hint">Deslize para os lados para ver todos os assentos.</p>
+    <div class="room">
+      <div class="stage">PALCO</div>
+      <div class="seats" id="seats"></div>
+    </div>
+    <div class="summary">
+      <p class="sel-info" id="m-info">Nenhum assento selecionado.</p>
+      <button class="btn dark small" id="m-confirm" disabled>Reservar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="bio" role="dialog" aria-modal="true" aria-labelledby="b-name">
+  <div class="sheet bio">
+    <button class="close" id="b-close" aria-label="Fechar">✕</button>
+    <div class="bio-grid">
+      <div class="portrait" id="b-portrait"><span class="anton" id="b-num"></span><svg class="emb" viewBox="0 0 100 100" overflow="visible"><use id="b-use" href="#i-mic"/></svg></div>
+      <div class="b-head">
+        <h3 class="anton" id="b-name"></h3>
+        <p class="role" id="b-role"></p>
+      </div>
+      <div class="b-text" id="b-text"></div>
+      <div class="b-tracks"><h4>Faixas favoritas</h4><ul id="b-tracks"></ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+
+  // com um modal aberto, o resto da página fica fora do alcance do foco e dos leitores de tela
+  const setBackground = on => document.querySelectorAll('header, main, footer').forEach(el => { el.inert = !on; });
+
+  // menu no celular
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  const setMenu = open => {
+    menu.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+  };
+  menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+  // revelar ao rolar
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  const toast = document.getElementById('toast');
+  let timer;
+  const say = msg => {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove('show'), 3200);
+  };
+
+  // mapa de assentos (demonstração)
+  const modal = document.getElementById('modal');
+  const seatsEl = document.getElementById('seats');
+  const info = document.getElementById('m-info');
+  const confirmBtn = document.getElementById('m-confirm');
+  const ROWS = 'ABCDEFGH', COLS = 14, PRICE = 80;
+  let selected = new Set(), lastFocus = null, current = null;
+
+  // ocupação fixa por cidade (sempre a mesma ao reabrir)
+  const rng = seed => () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+
+  function openSeats(btn) {
+    current = btn.dataset;
+    lastFocus = btn;
+    selected.clear();
+    document.getElementById('m-sub').textContent =
+      `${current.city} · ${current.date} · ${current.venue} · R$ ${PRICE},00 por assento`;
+    const rand = rng([...current.city].reduce((a, c) => a + c.charCodeAt(0), 7));
+    seatsEl.innerHTML = '';
+    [...ROWS].forEach((letter, ri) => {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = `<span class="r">${letter}</span>`;
+      for (let c = 1; c <= COLS; c++) {
+        if (c === COLS / 2 + 1) row.insertAdjacentHTML('beforeend', '<span class="gap"></span>');
+        const id = letter + c;
+        const s = document.createElement('button');
+        s.className = 'seat';
+        s.dataset.id = id;
+        s.setAttribute('aria-label', 'Assento ' + id);
+        s.setAttribute('aria-pressed', 'false');
+        const taken = rand() < (.18 + ri * .06);
+        if (taken) { s.disabled = true; s.setAttribute('aria-label', 'Assento ' + id + ' ocupado'); }
+        row.appendChild(s);
+      }
+      seatsEl.appendChild(row);
+    });
+    refresh();
+    modal.classList.add('open');
+    setBackground(false);
+    document.body.style.overflow = 'hidden';
+    document.getElementById('m-close').focus();
+  }
+
+  function closeSeats() {
+    modal.classList.remove('open');
+    setBackground(true);
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  function refresh() {
+    const n = selected.size;
+    info.innerHTML = n
+      ? `<b>${n}</b> assento${n > 1 ? 's' : ''}: ${[...selected].sort().join(', ')}<br>Total: <b>R$ ${n * PRICE},00</b>`
+      : 'Nenhum assento selecionado.';
+    confirmBtn.disabled = n === 0;
+  }
+
+  seatsEl.addEventListener('click', e => {
+    const s = e.target.closest('.seat');
+    if (!s || s.disabled) return;
+    const id = s.dataset.id;
+    if (selected.has(id)) { selected.delete(id); s.classList.remove('sel'); s.setAttribute('aria-pressed', 'false'); }
+    else if (selected.size < 6) { selected.add(id); s.classList.add('sel'); s.setAttribute('aria-pressed', 'true'); }
+    else say('Máximo de 6 assentos por reserva.');
+    refresh();
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    const n = selected.size;
+    closeSeats();
+    say(`Reserva simulada: ${n} assento${n > 1 ? 's' : ''} em ${current.city}.`);
+  });
+  document.getElementById('m-close').addEventListener('click', closeSeats);
+  modal.addEventListener('click', e => { if (e.target === modal) closeSeats(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeSeats(); });
+
+  // perfis dos integrantes
+  const MEMBERS = {
+    tiago: {
+      n: 1, name: 'Tiago Tavares', role: 'Vocalista e violão · natural de João Pessoa',
+      text: ['Tiago começou a escrever canções aos treze anos, num caderno de capa dura que ainda guarda na mochila. Foi ele quem insistiu para que os quatro se encontrassem de novo e tocassem até os vizinhos pedirem bis em vez de silêncio. Hoje ainda fecha cada letra sozinho, de madrugada, e é dele a voz que abre o disco em "Sem Olhar Pra Trás".'],
+      tracks: ['Desculpas em Lá Maior', 'Esqueci de Te Falar'],
+      icon: 'i-mic', a: '170deg', g1: '#eee', g2: '#555'
+    },
+    luana: {
+      n: 2, name: 'Luana Silveira', role: 'Guitarra e segunda voz · natural de Recife',
+      text: ['Luana aprendeu guitarra ouvindo disco de rock inglês no rádio de pilha da avó, com a orelha colada no alto-falante. Faz solo curtinho de propósito: para ela, solo é um recado, não um discurso.'],
+      tracks: ['Sem Olhar Pra Trás', 'Onde o Vento me Levar'],
+      icon: 'i-guitar', a: '200deg', g1: '#ddd', g2: '#333'
+    },
+    beto: {
+      n: 3, name: 'Beto Cavalari', role: 'Baixo e vozes · natural de Porto Alegre',
+      text: ['Fala pouco. No palco, fala muito. Segura o grave, faz a terceira voz, conserta o que quebra. Foi ele quem achou o furgão da primeira viagem.'],
+      tracks: ['Sábado à Noite', 'Desculpas em Lá Maior'],
+      icon: 'i-bass', a: '150deg', g1: '#f4f4f4', g2: '#666'
+    },
+    rita: {
+      n: 4, name: 'Rita Teixeira', role: 'Bateria e teclados · natural de Ribeirão Preto',
+      text: ['Veio da fanfarra da escola e trouxe o pulso firme de quem desfila na rua. Bate na bateria como quem chama a cidade pra dançar e toca teclado como quem escreve carta: devagar, com cuidado, esperando resposta.'],
+      tracks: ['Sábado à Noite', 'Sem Olhar Pra Trás'],
+      icon: 'i-drum', a: '185deg', g1: '#ff6b73', g2: '#e3202b'
+    }
+  };
+  const bio = document.getElementById('bio');
+  let bioFocus = null;
+  function openBio(btn) {
+    const m = MEMBERS[btn.dataset.m];
+    bioFocus = btn;
+    document.getElementById('b-num').textContent = m.n;
+    const p = document.getElementById('b-portrait');
+    p.style.setProperty('--a', m.a); p.style.setProperty('--g1', m.g1); p.style.setProperty('--g2', m.g2);
+    p.className = 'portrait pt' + m.n;
+    document.getElementById('b-use').setAttribute('href', '#' + m.icon);
+    document.getElementById('b-name').textContent = m.name;
+    document.getElementById('b-role').textContent = m.role;
+    document.getElementById('b-text').innerHTML = m.text.map(t => `<p>${t}</p>`).join('');
+    document.getElementById('b-tracks').innerHTML = m.tracks.map(t => `<li>${t}</li>`).join('');
+    bio.classList.add('open');
+    setBackground(false);
+    document.body.style.overflow = 'hidden';
+    document.getElementById('b-close').focus();
+  }
+  function closeBio() {
+    bio.classList.remove('open');
+    setBackground(true);
+    document.body.style.overflow = '';
+    if (bioFocus) bioFocus.focus();
+  }
+  document.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => openBio(b)));
+  document.getElementById('b-close').addEventListener('click', closeBio);
+  bio.addEventListener('click', e => { if (e.target === bio) closeBio(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && bio.classList.contains('open')) closeBio(); });
+
+  document.querySelectorAll('[data-city]').forEach(b => b.addEventListener('click', () => openSeats(b)));
+</script>
+</body>
+</html>
